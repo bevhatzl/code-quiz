@@ -6,19 +6,21 @@ let option1El = document.querySelector("#option1");
 let option2El = document.querySelector("#option2");
 let option3El = document.querySelector("#option3");
 let option4El = document.querySelector("#option4");
+let optionElsArray = [option1El, option2El, option3El, option4El]
+let activeQuestion = 0;
 
 // Creating the objects
-let q1 = new QuizQ("question1", ["choice1", "choice2", "choice3", "choice4"], "choice2");
-let q2 = new QuizQ("question1", ["choice1", "choice2", "choice3", "choice4"], "choice2");
-let q3 = new QuizQ("question1", ["choice1", "choice2", "choice3", "choice4"], "choice2");
-let q4 = new QuizQ("question1", ["choice1", "choice2", "choice3", "choice4"], "choice2");
-let q5 = new QuizQ("question1", ["choice1", "choice2", "choice3", "choice4"], "choice2");
+let q1 = new QuizQ("Which built-in method combines the text of two strings and returns a new string?", ["append()", "concat()", "attach()", "None of the above."], 1);
+let q2 = new QuizQ("Which of the following function of Number object forces a number to display in exponential notation?", ["toExponential()", "toFixed()", "toPrecision()", "toLocaleString()"], 0);
+let q3 = new QuizQ("What is the HTML tag under which one can write the JavaScript code?", ["<javascript>", "<scripted>", "<script>", "<js>"], 2);
+let q4 = new QuizQ("Which of the following is the correct syntax to display an alert box using JavaScript?", ["alertbox()", "msg()", "msgbox()", "alert()"], 3);
+let q5 = new QuizQ("Which of the following is not a reserved word in JavaScript?", ["interface", "throws", "program", "short"], 2);
 
 const questionsArray = [q1, q2, q3, q4, q5];
 
 let interval;
 let secondsElapsed = 0;
-let maxTime = 75;
+const maxTime = 75;
 
 // Object constructor for the quiz questions
 function QuizQ(question, choices, answer) {
@@ -37,10 +39,14 @@ function runQuiz() {
     const newQsArray = randomizeQs(questionsArray);
     // Start the timer 
     startTimer();
+    
+    setTimeout(function() {
+        // End the quiz and go to scores page
+        displayScore();
+    }, 75000)
+   
     // Display the questions
     renderQuestion(newQsArray);
-
-    // Check answer to question
 
 
 };
@@ -61,20 +67,47 @@ function startTimer() {
 }
 
 function renderQuestion(questions) {
+    
     questionGroup.style.visibility = "visible"; 
-  
-    console.log(questionsArray);
-    console.log(questions);
+    
+        questionEl.textContent = questions[activeQuestion].question;
+        option1El.textContent = questions[activeQuestion].choices[0];
+        option2El.textContent = questions[activeQuestion].choices[1];
+        option3El.textContent = questions[activeQuestion].choices[2];
+        option4El.textContent = questions[activeQuestion].choices[3];
+        // set correct attribute to correct answer
+        let correctAnswer = questions[activeQuestion].answer;
+        if (correctAnswer = 0) {
+            option1El.setAttribute("data-correct", true);
+        }
+        if (correctAnswer = 1) {
+            option2El.setAttribute("data-correct", true);
+        }
+        if (correctAnswer = 2) {
+            option2El.setAttribute("data-correct", true);
+        }
+        if (correctAnswer = 3) {
+            option3El.setAttribute("data-correct", true);
+        }
 
-        questionEl.textContent = questions[0].question;
-        option1El.textContent = questions[0].choices[0];
-        option2El.textContent = questions[0].choices[1];
-        option3El.textContent = questions[0].choices[2];
-        option4El.textContent = questions[0].choices[3];
-
-        // Check answer to question
-
-
-  
+      
+    
     
 }
+
+
+questionGroup.addEventListener("click", function(event) {
+    let element = event.target;
+  
+    // If that element is a button...
+    if (element.matches("button") === true) {
+        // Check answer to question
+        if (!element.hasAttribute("data-correct")) {
+            secondsElapsed = secondsElapsed + 15;
+        } 
+        activeQuestion++;
+        renderQuestion(questionsArray);
+    }
+
+});
+
