@@ -1,0 +1,19 @@
+.row1 {
+    margin-top: 20px;
+}
+
+.row2 {
+    margin-top: 75px;
+    justify-content: center;
+}
+
+.hs-link {
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.timer {
+    font-weight: 800;
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+}
