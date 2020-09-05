@@ -8,12 +8,21 @@
 }
 
 .hs-link {
-    font-size: 24px;
+    font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.timer {
+#timer {
     font-weight: 800;
     font-size: 24px;
     font-family: Arial, Helvetica, sans-serif;
+}  
+
+.question-group {
+    visibility: hidden;
+}
+
+.btn-group-vertical>.btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
