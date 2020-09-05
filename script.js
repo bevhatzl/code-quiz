@@ -21,6 +21,8 @@ const questionsArray = [q1, q2, q3, q4, q5];
 let interval;
 let secondsElapsed = 0;
 const maxTime = 75;
+let countdown = 75000;
+
 
 // Object constructor for the quiz questions
 function QuizQ(question, choices, answer) {
@@ -42,12 +44,15 @@ function runQuiz() {
     
     setTimeout(function() {
         // End the quiz and go to scores page
-        displayScore();
+        // displayScore();
+         // go to high scores page
+         document.write("High Scores Page");
     }, 75000)
    
     // Display the questions
-    renderQuestion(newQsArray);
-
+    
+        renderQuestion(newQsArray); 
+ 
 
 };
 
@@ -63,13 +68,16 @@ function startTimer() {
     interval = setInterval(function() {
         secondsElapsed++;
         timer.textContent = maxTime - secondsElapsed;
+        countdown = countdown - 1000;
     }, 1000);
 }
 
 function renderQuestion(questions) {
-    
+ 
+
+  if (countdown > 0)  {
     questionGroup.style.visibility = "visible"; 
-    
+    if (activeQuestion < questions.length) {
         questionEl.textContent = questions[activeQuestion].question;
         option1El.textContent = questions[activeQuestion].choices[0];
         option2El.textContent = questions[activeQuestion].choices[1];
@@ -77,21 +85,37 @@ function renderQuestion(questions) {
         option4El.textContent = questions[activeQuestion].choices[3];
         // set correct attribute to correct answer
         let correctAnswer = questions[activeQuestion].answer;
-        if (correctAnswer = 0) {
+        if (correctAnswer === 0) {
             option1El.setAttribute("data-correct", true);
+            option2El.removeAttribute("data-correct");
+            option3El.removeAttribute("data-correct");
+            option4El.removeAttribute("data-correct");
         }
-        if (correctAnswer = 1) {
+        if (correctAnswer === 1) {
             option2El.setAttribute("data-correct", true);
-        }
-        if (correctAnswer = 2) {
-            option2El.setAttribute("data-correct", true);
-        }
-        if (correctAnswer = 3) {
-            option3El.setAttribute("data-correct", true);
-        }
+            option1El.removeAttribute("data-correct");
+            option3El.removeAttribute("data-correct");
+            option4El.removeAttribute("data-correct");
 
-      
-    
+        }
+        if (correctAnswer === 2) {
+            option3El.setAttribute("data-correct", true);
+            option1El.removeAttribute("data-correct");
+            option2El.removeAttribute("data-correct");
+            option4El.removeAttribute("data-correct");
+
+        }
+        if (correctAnswer === 3) {
+            option4El.setAttribute("data-correct", true);
+            option1El.removeAttribute("data-correct");
+            option2El.removeAttribute("data-correct");
+            option3El.removeAttribute("data-correct");
+        }
+    } else {
+        // go to high scores page
+        document.write("High Scores Page");
+    }
+  }   
     
 }
 
@@ -104,8 +128,12 @@ questionGroup.addEventListener("click", function(event) {
         // Check answer to question
         if (!element.hasAttribute("data-correct")) {
             secondsElapsed = secondsElapsed + 15;
+            countdown = countdown = 15000;
+
         } 
         activeQuestion++;
+        // reset the attribute
+
         renderQuestion(questionsArray);
     }
 
