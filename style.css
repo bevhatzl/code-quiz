@@ -12,13 +12,13 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#timer {
+#timer, #question {
     font-weight: 800;
     font-size: 24px;
     font-family: Arial, Helvetica, sans-serif;
 }  
 
-.question-group {
+#question-group {
     visibility: hidden;
 }
 
