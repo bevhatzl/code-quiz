@@ -8,6 +8,11 @@ let option3El = document.querySelector("#option3");
 let option4El = document.querySelector("#option4");
 let optionElsArray = [option1El, option2El, option3El, option4El]
 let activeQuestion = 0;
+let interval;
+let secondsElapsed = 0;
+const maxTime = 75;
+let countdown = 75000;
+let score;
 
 // Creating the objects
 let q1 = new QuizQ("Which built-in method combines the text of two strings and returns a new string?", ["append()", "concat()", "attach()", "None of the above."], 1);
@@ -17,13 +22,6 @@ let q4 = new QuizQ("Which of the following is the correct syntax to display an a
 let q5 = new QuizQ("Which of the following is not a reserved word in JavaScript?", ["interface", "throws", "program", "short"], 2);
 
 const questionsArray = [q1, q2, q3, q4, q5];
-
-let interval;
-let secondsElapsed = 0;
-const maxTime = 75;
-let countdown = 75000;
-let score;
-
 
 // Object constructor for the quiz questions
 function QuizQ(question, choices, answer) {
@@ -42,20 +40,8 @@ function runQuiz() {
     const newQsArray = randomizeQs(questionsArray);
     // Start the timer 
     startTimer();
-    /*
-    setTimeout(function() {
-        // End the quiz and go to scores page
-        // displayScore();
-         // go to high scores page
-         score = maxTime - secondsElapsed;
-         document.write(score);
-    }, countdown); */
-   
-    // Display the questions
-    
-        renderQuestion(newQsArray); 
- 
-
+    // Display the first question
+    renderQuestion(newQsArray); 
 };
 
 function randomizeQs(array) {
@@ -72,6 +58,7 @@ function startTimer() {
         secondsElapsed++;
         timer.textContent = maxTime - secondsElapsed;
         countdown = countdown - 1000;
+        // Check if timer has reached 0
         countdown <= 0 ? isTimedOut = true : isTimedOut = false;
         if (isTimedOut) {
             clearInterval(interval);
@@ -79,8 +66,7 @@ function startTimer() {
             score = maxTime - secondsElapsed;
             document.write(score);  
         }
-    }, 1000);
-    
+    }, 1000);    
 }
 
 function renderQuestion(questions) {
@@ -92,7 +78,7 @@ function renderQuestion(questions) {
         option2El.textContent = questions[activeQuestion].choices[1];
         option3El.textContent = questions[activeQuestion].choices[2];
         option4El.textContent = questions[activeQuestion].choices[3];
-        // set correct attribute to correct answer
+        // set correct attribute to the correct answer
         let correctAnswer = questions[activeQuestion].answer;
         if (correctAnswer === 0) {
             option1El.setAttribute("data-correct", true);
@@ -125,35 +111,21 @@ function renderQuestion(questions) {
         score = maxTime - secondsElapsed;
         document.write(score);
     }
-  }   
-    
+  }       
 }
 
 
 questionGroup.addEventListener("click", function(event) {
-    let element = event.target;
-  
-    // If that element is a button...
+    let element = event.target;  
+    // If target element is a button...
     if (element.matches("button") === true) {
         // Check answer to question
         if (!element.hasAttribute("data-correct")) {
+            // Penalise wrong answer
             secondsElapsed = secondsElapsed + 15;
             countdown = countdown - 15000;
-
-
-        /*    setTimeout(function() {
-                // End the quiz and go to scores page
-                // displayScore();
-                 // go to high scores page
-                 score = maxTime - secondsElapsed;
-                 document.write(score);
-            }, countdown);  */
-
         } 
         activeQuestion++;
-        // reset the attribute
-        console.log(countdown);
         renderQuestion(questionsArray);
     }
-
 });
