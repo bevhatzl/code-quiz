@@ -22,6 +22,7 @@ let interval;
 let secondsElapsed = 0;
 const maxTime = 75;
 let countdown = 75000;
+let score;
 
 
 // Object constructor for the quiz questions
@@ -46,8 +47,9 @@ function runQuiz() {
         // End the quiz and go to scores page
         // displayScore();
          // go to high scores page
-         document.write("High Scores Page");
-    }, 75000)
+         score = maxTime - secondsElapsed;
+         document.write(score);
+    }, countdown);
    
     // Display the questions
     
@@ -113,7 +115,9 @@ function renderQuestion(questions) {
         }
     } else {
         // go to high scores page
-        document.write("High Scores Page");
+        
+        score = maxTime - secondsElapsed;
+        document.write(score);
     }
   }   
     
@@ -128,12 +132,12 @@ questionGroup.addEventListener("click", function(event) {
         // Check answer to question
         if (!element.hasAttribute("data-correct")) {
             secondsElapsed = secondsElapsed + 15;
-            countdown = countdown = 15000;
+            countdown = countdown - 15000;
 
         } 
         activeQuestion++;
         // reset the attribute
-
+        console.log(countdown);
         renderQuestion(questionsArray);
     }
 
