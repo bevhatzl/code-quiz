@@ -42,14 +42,14 @@ function runQuiz() {
     const newQsArray = randomizeQs(questionsArray);
     // Start the timer 
     startTimer();
-    
+    /*
     setTimeout(function() {
         // End the quiz and go to scores page
         // displayScore();
          // go to high scores page
          score = maxTime - secondsElapsed;
          document.write(score);
-    }, countdown);
+    }, countdown); */
    
     // Display the questions
     
@@ -68,15 +68,22 @@ function randomizeQs(array) {
 
 function startTimer() {
     interval = setInterval(function() {
+        let isTimedOut;
         secondsElapsed++;
         timer.textContent = maxTime - secondsElapsed;
         countdown = countdown - 1000;
+        countdown <= 0 ? isTimedOut = true : isTimedOut = false;
+        if (isTimedOut) {
+            clearInterval(interval);
+            // End the quiz and go to scores page
+            score = maxTime - secondsElapsed;
+            document.write(score);  
+        }
     }, 1000);
+    
 }
 
 function renderQuestion(questions) {
- 
-
   if (countdown > 0)  {
     questionGroup.style.visibility = "visible"; 
     if (activeQuestion < questions.length) {
@@ -114,8 +121,7 @@ function renderQuestion(questions) {
             option3El.removeAttribute("data-correct");
         }
     } else {
-        // go to high scores page
-        
+        // go to high scores page since no more questions        
         score = maxTime - secondsElapsed;
         document.write(score);
     }
@@ -134,6 +140,15 @@ questionGroup.addEventListener("click", function(event) {
             secondsElapsed = secondsElapsed + 15;
             countdown = countdown - 15000;
 
+
+        /*    setTimeout(function() {
+                // End the quiz and go to scores page
+                // displayScore();
+                 // go to high scores page
+                 score = maxTime - secondsElapsed;
+                 document.write(score);
+            }, countdown);  */
+
         } 
         activeQuestion++;
         // reset the attribute
@@ -142,4 +157,3 @@ questionGroup.addEventListener("click", function(event) {
     }
 
 });
-
