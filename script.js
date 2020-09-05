@@ -9,6 +9,10 @@ let q5 = new QuizQ("question1", ["choice1", "choice2", "choice3", "choice4"], "c
 
 const questionsArray = [q1, q2, q3, q4, q5];
 
+let interval;
+let secondsElapsed = 0;
+let maxTime = 75;
+
 // Object constructor for the quiz questions
 function QuizQ(question, choices, answer) {
     this.question = question;
@@ -25,9 +29,12 @@ function runQuiz() {
     // randomize the quiz questions
     const newQsArray = randomizeQs(questionsArray);
     // Start the timer 
-
+    startTimer();
     // Display the questions
-    
+
+    // Check answer to question
+
+
 };
 
 function randomizeQs(array) {
@@ -36,3 +43,10 @@ function randomizeQs(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
 };
+
+function startTimer() {
+        interval = setInterval(function() {
+          secondsElapsed++;
+          timer.textContent = maxTime - secondsElapsed;
+        }, 1000);
+}
