@@ -64,7 +64,7 @@ function startTimer() {
             clearInterval(interval);
             // End the quiz and go to scores page
             score = maxTime - secondsElapsed;
-            document.write(score);  
+            window.location = "./scores.html";  
         }
     }, 1000);    
 }
@@ -109,7 +109,8 @@ function renderQuestion(questions) {
     } else {
         // go to high scores page since no more questions        
         score = maxTime - secondsElapsed;
-        document.write(score);
+        localStorage.setItem("score", JSON.stringify(score));
+        window.location = "./scores.html";  
     }
   }       
 }
