@@ -40,3 +40,7 @@
 #score-col {
     margin: auto;
 }
+
+#start-over, #clear-scores {
+    visibility: hidden;
+}

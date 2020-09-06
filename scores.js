@@ -4,11 +4,13 @@ let userInput = document.querySelector("#score-text");
 let scoreForm = document.querySelector("#score-form");
 let scoreList = document.querySelector("#score-list");
 let submitBtn = document.querySelector("#submit-btn");
+let startOverBtn = document.querySelector("#start-over");
+let clearBtn = document.querySelector("#clear-scores");
 let scores = [];
 let initial;
 
 scoreEl.textContent += score;
-storedScores = JSON.parse(localStorage.getItem("scores"));
+
 
 
 function renderScores() {
@@ -16,17 +18,17 @@ function renderScores() {
     scoreList.innerHTML = "";
     // Remove the text input and submit button from being displayed
     scoreForm.style.visibility = 'hidden';
-
+    // Display Start Button and Clear High Scores Button
+    startOverBtn.style.visibility = "visible";
+    clearBtn.style.visibility = "visible";
     // Render a new li for each score
     for (let i = 0; i < scores.length; i++) {
       let arrayScore = scores[i].score;
       let arrayInitial = scores[i].initial;
   
       let li = document.createElement("li");
-      li.textContent = arrayScore + arrayInitial;
+      li.textContent = arrayScore + " :  " + arrayInitial;
       li.setAttribute("data-index", i);
-  
-
       scoreList.appendChild(li);
     }
   }
@@ -43,7 +45,11 @@ function renderScores() {
       return;
     }
 
-    
+    storedScores = JSON.parse(localStorage.getItem("scores"));
+    if (!storedScores) {
+        localStorage.setItem("scores", JSON.stringify([]));
+    }
+    storedScores = JSON.parse(localStorage.getItem("scores"));
     // Add new scoreText and score to scores arrayas an object, clear the input
     storedScores.push({score: score, initial: scoreText});
     userInput.value = "";
@@ -55,12 +61,6 @@ function renderScores() {
 
     sortScores();
     renderScores();
-
-
-    //let storedScores = JSON.parse(localStorage.getItem("scores"));
-
-
-   //storeScores();
   
   });
   
@@ -84,3 +84,20 @@ function sortScores() {
         }
     } while (!isSorted);
 }
+
+// When user click to clear high scores
+clearBtn.addEventListener("click", function(event) {
+    let element = event.target;
+
+    if (element.matches("button") === true) {
+  
+
+    // Clear localStorage and render the blank list
+   
+    localStorage.clear("scores");
+
+
+    scoreList.innerHTML = "";
+    }
+  
+  });
