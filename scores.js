@@ -101,3 +101,14 @@ clearBtn.addEventListener("click", function(event) {
     }
   
   });
+
+  // When Start Over button is clicked...
+  startOverBtn.addEventListener("click", function(event) {
+    let element = event.target;
+
+    if (element.matches("button") === true) {
+        window.location = "./index.html";
+
+    }
+  
+  });

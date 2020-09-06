@@ -1,4 +1,5 @@
 let startButton = document.querySelector("#start-button");
+let scoresPageBtn = document.querySelector(".hs-link");
 let timer = document.querySelector("#timer");
 let questionGroup = document.querySelector("#question-group");
 let questionEl = document.querySelector("#question");
@@ -128,5 +129,15 @@ questionGroup.addEventListener("click", function(event) {
         } 
         activeQuestion++;
         renderQuestion(questionsArray);
+    }
+});
+
+// If high scores link is clicked...
+scoresPageBtn.addEventListener("click", function(event) {
+    let element = event.target;  
+    // If target element is a button...
+    if (element.matches("button") === true) {
+        window.location("./scores.html");
+        
     }
 });
