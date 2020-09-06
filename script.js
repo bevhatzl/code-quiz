@@ -65,6 +65,7 @@ function startTimer() {
             clearInterval(interval);
             // End the quiz and go to scores page
             score = maxTime - secondsElapsed;
+            localStorage.setItem("quizCompleted", true);
             window.location = "./scores.html";  
         }
     }, 1000);    
@@ -111,6 +112,7 @@ function renderQuestion(questions) {
         // go to high scores page since no more questions        
         score = maxTime - secondsElapsed;
         localStorage.setItem("score", JSON.stringify(score));
+        localStorage.setItem("quizCompleted", true);
         window.location = "./scores.html";  
     }
   }       
@@ -134,10 +136,10 @@ questionGroup.addEventListener("click", function(event) {
 
 // If high scores link is clicked...
 scoresPageBtn.addEventListener("click", function(event) {
-    let element = event.target;  
-    // If target element is a button...
-    if (element.matches("button") === true) {
-        window.location("./scores.html");
+      
+   // localStorage.clear(score);
+   localStorage.setItem("quizCompleted", false);
+        window.location = "./scores.html";
         
-    }
+    
 });

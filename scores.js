@@ -8,9 +8,38 @@ let startOverBtn = document.querySelector("#start-over");
 let clearBtn = document.querySelector("#clear-scores");
 let scores = [];
 let initial;
+let completedBoolean;
 
 scoreEl.textContent += score;
 
+// If quiz not completed... immediately display high scores list
+ let isCompleted = localStorage.getItem("quizCompleted");
+ console.log(typeof(isCompleted));
+ console.log(isCompleted);
+ if (isCompleted === "true") {
+    completedBoolean = true;
+ } 
+ if (isCompleted === "false") {
+    completedBoolean = false;
+ } 
+ 
+if (completedBoolean === false) {
+    scoreEl.style.visibility = "hidden";
+
+
+    storedScores = JSON.parse(localStorage.getItem("scores"));
+    if (!storedScores) {
+        localStorage.setItem("scores", JSON.stringify([]));
+    }
+    storedScores = JSON.parse(localStorage.getItem("scores")); 
+
+    scores = JSON.parse(localStorage.getItem("scores"));
+
+    sortScores();
+
+
+    renderScores();
+} 
 
 
 function renderScores() {
@@ -107,6 +136,7 @@ clearBtn.addEventListener("click", function(event) {
     let element = event.target;
 
     if (element.matches("button") === true) {
+      //  localStorage.removeItem(score);
         window.location = "./index.html";
 
     }
