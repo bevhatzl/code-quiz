@@ -2,6 +2,8 @@ let startButton = document.querySelector("#start-button");
 let scoresPageBtn = document.querySelector(".hs-link");
 let timer = document.querySelector("#timer");
 let questionGroup = document.querySelector("#question-group");
+let tickEl = document.querySelector("#tick");
+let crossEl = document.querySelector("#cross");
 let questionEl = document.querySelector("#question");
 let option1El = document.querySelector("#option1");
 let option2El = document.querySelector("#option2");
@@ -30,6 +32,9 @@ function QuizQ(question, choices, answer) {
     this.choices = choices;
     this.answer = answer;
 }
+
+tickEl.style.visibility = "hidden";
+crossEl.style.visibility = "hidden";
 
 startButton.addEventListener("click", function() {
     startButton.style.visibility = 'hidden';
@@ -133,10 +138,20 @@ questionGroup.addEventListener("click", function(event) {
     if (element.matches("button") === true) {
         // Check answer to question
         if (!element.hasAttribute("data-correct")) {
-            // Penalise wrong answer
+            // Penalise wrong answer and display a cross
+            crossEl.style.visibility = "visible";
+            setTimeout(function(){ 
+                crossEl.style.visibility = "hidden";
+            }, 1000);
             secondsElapsed = secondsElapsed + 15;
             countdown = countdown - 15000;
-        } 
+        } else {
+            // display a tick
+            tickEl.style.visibility = "visible";
+            setTimeout(function(){ 
+                tickEl.style.visibility = "hidden";
+            }, 1000);
+        }
         activeQuestion++;
         renderQuestion(questionsArray);
     }
