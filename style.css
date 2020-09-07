@@ -44,3 +44,7 @@
 #start-over, #clear-scores {
     visibility: hidden;
 }
+
+#buttons {
+    margin-top: none;
+}
