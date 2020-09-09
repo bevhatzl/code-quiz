@@ -7,7 +7,7 @@ This is a coding quiz made in HTML, CSS and Javascript.
 
 ## Instructions
 <p>User is presented with the first screen showing a button to start the quiz or a link to view the high scores list.</p>
-<p>When the Start Quiz button is selected the timer starts and first quiz question is displayed. User clicks on the answer to move on to the next question. An incorrect answer will result in the timer being reduced by 15 seconds.</p>
+<p>When the Start Quiz button is selected the timer starts and first quiz question is displayed. The quiz questions are in random order. User clicks on the answer to move on to the next question. An incorrect answer will result in the timer being reduced by 15 seconds.</p>
 <p>When the quiz is finished the score is displayed with a prompt for user to enter their initials. The high score is recorded in a list which is then displayed.</p>
 <p>The high scores screen also has the option to clear the high scores or start over the quiz again.</p>
 
